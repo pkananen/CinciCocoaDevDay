@@ -1,5 +1,5 @@
 //
-//  background.h
+//  LayerBackground.h
 //  CinciCocoaDevDay
 //
 //  Created by David Miller on 6/25/11.
@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-
-@interface background : CCNode {
+@interface LayerBackground : CCNode {
     
     CCSpriteBatchNode* spriteBatch;
     

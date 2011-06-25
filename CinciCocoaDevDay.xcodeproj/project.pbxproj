@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2AB0A47913B65974008B7051 /* background.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB0A47813B65974008B7051 /* background.m */; };
 		2AB0A47D13B65DEC008B7051 /* background.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AB0A47B13B65DEC008B7051 /* background.plist */; };
 		2AB0A47E13B65DEC008B7051 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AB0A47C13B65DEC008B7051 /* background.png */; };
+		2AB0A48113B66370008B7051 /* LayerBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB0A48013B66370008B7051 /* LayerBackground.m */; };
 		BB3AE98113B642E300BB6E71 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB3AE98013B642E300BB6E71 /* QuartzCore.framework */; };
 		BB3AE98313B642E300BB6E71 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB3AE98213B642E300BB6E71 /* OpenGLES.framework */; };
 		BB3AE98513B642E300BB6E71 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB3AE98413B642E300BB6E71 /* OpenAL.framework */; };
@@ -165,10 +165,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2AB0A47713B65974008B7051 /* background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = background.h; sourceTree = "<group>"; };
-		2AB0A47813B65974008B7051 /* background.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = background.m; sourceTree = "<group>"; };
 		2AB0A47B13B65DEC008B7051 /* background.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = background.plist; sourceTree = "<group>"; };
 		2AB0A47C13B65DEC008B7051 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		2AB0A47F13B66370008B7051 /* LayerBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerBackground.h; sourceTree = "<group>"; };
+		2AB0A48013B66370008B7051 /* LayerBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerBackground.m; sourceTree = "<group>"; };
 		BB3AE97C13B642E300BB6E71 /* CinciCocoaDevDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CinciCocoaDevDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB3AE98013B642E300BB6E71 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB3AE98213B642E300BB6E71 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -536,8 +536,8 @@
 		BB3AE99013B642E300BB6E71 /* CinciCocoaDevDay */ = {
 			isa = PBXGroup;
 			children = (
-				2AB0A47713B65974008B7051 /* background.h */,
-				2AB0A47813B65974008B7051 /* background.m */,
+				2AB0A47F13B66370008B7051 /* LayerBackground.h */,
+				2AB0A48013B66370008B7051 /* LayerBackground.m */,
 				BB3AEB5513B642E500BB6E71 /* AppDelegate.h */,
 				BB3AEB5613B642E500BB6E71 /* AppDelegate.mm */,
 				BB3AEB5813B642E500BB6E71 /* RootViewController.h */,
@@ -1217,7 +1217,7 @@
 				BB3AEB5A13B642E500BB6E71 /* RootViewController.m in Sources */,
 				BB3AEB5D13B642E500BB6E71 /* HelloWorldLayer.mm in Sources */,
 				BB3AEB6013B642E500BB6E71 /* GLES-Render.mm in Sources */,
-				2AB0A47913B65974008B7051 /* background.m in Sources */,
+				2AB0A48113B66370008B7051 /* LayerBackground.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
