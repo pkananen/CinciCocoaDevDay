@@ -28,6 +28,13 @@ enum {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
 	
+    // Load all of the game's artwork up front.
+    CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
+    //[frameCache addSpriteFramesWithFile:@"game-art.plist"];
+    [frameCache addSpriteFramesWithFile:@"game-art.plist"];    
+    LayerBackground* background = [LayerBackground node];
+    [scene addChild:background z:-1];
+
 	// 'layer' is an autorelease object.
 	HelloWorldLayer *layer = [HelloWorldLayer node];
 	
@@ -51,17 +58,11 @@ enum {
 		// enable accelerometer
 		self.isAccelerometerEnabled = YES;
         
-        // Load all of the game's artwork up front.
-		CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
-		//[frameCache addSpriteFramesWithFile:@"game-art.plist"];
-        [frameCache addSpriteFramesWithFile:@"game-art.plist"];
-		
-		CGSize screenSize = [CCDirector sharedDirector].winSize;
-		CCLOG(@"Screen width %0.2f screen height %0.2f",screenSize.width,screenSize.height);
         
-        LayerBackground* background = [LayerBackground node];
-		[self addChild:background z:-1];
-		
+        CGSize screenSize = [CCDirector sharedDirector].winSize;
+        CCLOG(@"Screen width %0.2f screen height %0.2f",screenSize.width,screenSize.height);
+
+  		
 		// Define the gravity vector.
 		b2Vec2 gravity;
 		gravity.Set(0.0f, -10.0f);
