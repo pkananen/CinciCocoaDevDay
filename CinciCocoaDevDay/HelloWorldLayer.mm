@@ -114,12 +114,7 @@ enum {
 		CCSpriteBatchNode *batch = [CCSpriteBatchNode batchNodeWithFile:@"blocks.png" capacity:150];
 		[self addChild:batch z:0 tag:kTagBatchNode];
 		
-		[self addNewSpriteWithCoords:ccp(screenSize.width/2, screenSize.height/2)];
-		
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Tap screen" fontName:@"Marker Felt" fontSize:32];
-		[self addChild:label z:0];
-		[label setColor:ccc3(0,0,255)];
-		label.position = ccp( screenSize.width/2, screenSize.height-50);
+		//[self addNewSpriteWithCoords:ccp(screenSize.width/2, screenSize.height/2)];
 		
 		[self schedule: @selector(tick:)];
 	}
@@ -192,7 +187,7 @@ enum {
 	int32 positionIterations = 1;
 	
 	// Instruct the world to perform a single step of simulation. It is
-	// generally best to keep the time step and iterations fixed.
+	// generally best to keep the time step and iterations fixed.   
 	world->Step(dt, velocityIterations, positionIterations);
 
 	
@@ -204,13 +199,38 @@ enum {
 			CCSprite *myActor = (CCSprite*)b->GetUserData();
 			myActor.position = CGPointMake( b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO);
 			myActor.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
-		}	
+            NSLog(@"%@", NSStringFromCGPoint(myActor.position));		}	
 	}
 }
 
-- (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	// TODO drop bomb here
+- (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    // position of the plane
+	NSLog(@"%@", NSStringFromCGPoint(plane.position));
+    
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    CCSprite *bomb = [CCSprite spriteWithFile:@"blocks.png" rect:CGRectMake(0, 0, 32, 32)];
+    bomb.position = ccp(32, winSize.height/2);
+    [self addChild:bomb];
+    
+    
+    CGPoint bombTargetLocation = ccp(32, 0);
+    
+    // Determine the length of how far we're shooting
+    float length = bomb.position.y - bombTargetLocation.y;
+    float velocity = 240/1; // 480pixels/1sec
+    float realMoveDuration = length/velocity;
+    
+    // Move projectile to actual endpoint
+    [bomb runAction:[CCSequence actions:
+                           [CCMoveTo actionWithDuration:realMoveDuration position:bombTargetLocation],
+                           [CCCallFuncN actionWithTarget:self selector:@selector(spriteMoveFinished:)],
+                           nil]];
+    
+}
+
+-(void)spriteMoveFinished:(id)sender {
+    CCSprite *sprite = (CCSprite *)sender;
+    [self removeChild:sprite cleanup:YES];
 }
 
 - (void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration
