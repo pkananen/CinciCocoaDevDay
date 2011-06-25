@@ -1,10 +1,6 @@
 //
 //  GameConfig.h
 //  CinciCocoaDevDay
-//
-//  Created by Peter Kananen on 6/25/11.
-//  Copyright __MyCompanyName__ 2011. All rights reserved.
-//
 
 #ifndef __GAME_CONFIG_H
 #define __GAME_CONFIG_H

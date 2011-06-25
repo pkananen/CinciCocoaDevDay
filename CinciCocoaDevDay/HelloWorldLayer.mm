@@ -1,10 +1,6 @@
 //
 //  HelloWorldLayer.mm
 //  CinciCocoaDevDay
-//
-//  Created by Peter Kananen on 6/25/11.
-//  Copyright __MyCompanyName__ 2011. All rights reserved.
-//
 
 
 // Import the interfaces
@@ -222,14 +218,7 @@ enum {
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	//Add a new body/atlas sprite at the touched location
-	for( UITouch *touch in touches ) {
-		CGPoint location = [touch locationInView: [touch view]];
-		
-		location = [[CCDirector sharedDirector] convertToGL: location];
-		
-		[self addNewSpriteWithCoords: location];
-	}
+	// TODO drop bomb here
 }
 
 - (void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration

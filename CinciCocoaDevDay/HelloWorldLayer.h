@@ -1,10 +1,6 @@
 //
 //  HelloWorldLayer.h
 //  CinciCocoaDevDay
-//
-//  Created by Peter Kananen on 6/25/11.
-//  Copyright __MyCompanyName__ 2011. All rights reserved.
-//
 
 
 // When you import this file, you import all the cocos2d classes
@@ -18,6 +14,7 @@
 {
 	b2World* world;
 	GLESDebugDraw *m_debugDraw;
+    CCSprite* plane;
 }
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
