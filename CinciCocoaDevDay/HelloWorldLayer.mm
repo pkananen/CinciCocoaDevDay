@@ -213,7 +213,7 @@ enum {
 			CCSprite *myActor = (CCSprite*)b->GetUserData();
 			myActor.position = CGPointMake( b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO);
 			myActor.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
-            NSLog(@"%@", NSStringFromCGPoint(myActor.position));		}	
+        }	
 	}
 }
 
@@ -256,15 +256,26 @@ enum {
 	
 	float accelX = (float) acceleration.x * kFilterFactor + (1- kFilterFactor)*prevX;
 	float accelY = (float) acceleration.y * kFilterFactor + (1- kFilterFactor)*prevY;
-	
+
+	b2Body *body = (b2Body *) plane.userData;
+    b2Vec2 velocity = body->GetLinearVelocity(); 
+    body->SetLinearVelocity(velocity);
+
+    b2Vec2 nudge = b2Vec2(10.0,10.0);
+    b2Vec2 point = body->GetPosition();
+    NSLog(@"pt=%f,%f [%f,%f]  f=%f,%f", point.x, point.y, point.x*PTM_RATIO, point.y*PTM_RATIO, nudge.x, nudge.y);
+    body->ApplyLinearImpulse(nudge, point);
+    
 	prevX = accelX;
 	prevY = accelY;
 	
 	// accelerometer values are in "Portrait" mode. Change them to Landscape left
 	// multiply the gravity by 10
-	b2Vec2 gravity( -accelY * 10, accelX * 10);
+//	b2Vec2 gravity( -accelY * 10, accelX * 10);
 	
-	world->SetGravity( gravity );
+    
+    
+//	world->SetGravity( gravity );
 }
 
 // on "dealloc" you need to release all your retained objects
