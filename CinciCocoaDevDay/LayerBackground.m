@@ -30,7 +30,7 @@
 		numStripes = 3;
 		
 		// Add the 3 different stripes and position them on the screen
-		for (int i = 1; i < numStripes; i++)
+		for (int i = 1; i <= numStripes; i++)
 		{
 			NSString* frameName = [NSString stringWithFormat:@"BG_0%i.png", i];
 			CCSprite* sprite = [CCSprite spriteWithSpriteFrameName:frameName];
@@ -41,9 +41,9 @@
 		
 		// Initialize the array that contains the scroll factors for individual stripes.
 		speedFactors = [[CCArray alloc] initWithCapacity:numStripes];
-		[speedFactors addObject:[NSNumber numberWithFloat:0.0f]];
-		[speedFactors addObject:[NSNumber numberWithFloat:0.0f]];
-		[speedFactors addObject:[NSNumber numberWithFloat:0.0f]];
+		[speedFactors addObject:[NSNumber numberWithFloat:0.1f]];
+		[speedFactors addObject:[NSNumber numberWithFloat:0.3f]];
+		[speedFactors addObject:[NSNumber numberWithFloat:0.2f]];
 		NSAssert([speedFactors count] == numStripes, @"speedFactors count does not match numStripes!");
         
 		scrollSpeed = 1.0f;
