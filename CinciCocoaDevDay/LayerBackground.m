@@ -30,9 +30,10 @@
 		numStripes = 3;
 		
 		// Add the 3 different stripes and position them on the screen
-		for (int i = 1; i <= numStripes; i++)
+		for (int i = 0; i < numStripes; i++)
 		{
-			NSString* frameName = [NSString stringWithFormat:@"BG_0%i.png", i];
+			NSString* frameName = [NSString stringWithFormat:@"BG_0%i.png", i + 1];
+            NSLog(@"Frame: %@", frameName);
 			CCSprite* sprite = [CCSprite spriteWithSpriteFrameName:frameName];
 			sprite.anchorPoint = CGPointMake(0, 0.5f);
 			sprite.position = CGPointMake(0, screenSize.height / 2);
