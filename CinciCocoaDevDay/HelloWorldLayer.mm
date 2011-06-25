@@ -235,16 +235,17 @@ enum {
 }
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    // position of the plane
-	NSLog(@"%@", NSStringFromCGPoint(plane.position));
     
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
     CCSprite *bomb = [CCSprite spriteWithFile:@"blocks.png" rect:CGRectMake(0, 0, 32, 32)];
-    bomb.position = ccp(32, winSize.height/2);
+    
+    NSInteger bombHeight = bomb.boundingBox.size.height;
+    float planeBottom = plane.boundingBox.size.height;
+    float dropFrom = (plane.position.y - (planeBottom + (bombHeight / 2)));
+    bomb.position = ccp(plane.position.x, dropFrom);
     [self addChild:bomb];
     
     
-    CGPoint bombTargetLocation = ccp(32, 0);
+    CGPoint bombTargetLocation = ccp(plane.position.x, 0);
     
     // Determine the length of how far we're shooting
     float length = bomb.position.y - bombTargetLocation.y;
