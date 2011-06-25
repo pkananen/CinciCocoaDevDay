@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A8E39C813B67C36006C9BA7 /* game-art.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A8E39C613B67C36006C9BA7 /* game-art.plist */; };
+		2A8E39C913B67C36006C9BA7 /* game-art.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A8E39C713B67C36006C9BA7 /* game-art.png */; };
 		2AB0A48113B66370008B7051 /* LayerBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB0A48013B66370008B7051 /* LayerBackground.m */; };
-		2AB0A48413B66684008B7051 /* game-art.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AB0A48213B66684008B7051 /* game-art.plist */; };
-		2AB0A48513B66684008B7051 /* game-art.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AB0A48313B66684008B7051 /* game-art.png */; };
 		BB3AE98113B642E300BB6E71 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB3AE98013B642E300BB6E71 /* QuartzCore.framework */; };
 		BB3AE98313B642E300BB6E71 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB3AE98213B642E300BB6E71 /* OpenGLES.framework */; };
 		BB3AE98513B642E300BB6E71 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB3AE98413B642E300BB6E71 /* OpenAL.framework */; };
@@ -166,10 +166,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A8E39C613B67C36006C9BA7 /* game-art.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "game-art.plist"; sourceTree = "<group>"; };
+		2A8E39C713B67C36006C9BA7 /* game-art.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-art.png"; sourceTree = "<group>"; };
 		2AB0A47F13B66370008B7051 /* LayerBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerBackground.h; sourceTree = "<group>"; };
 		2AB0A48013B66370008B7051 /* LayerBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerBackground.m; sourceTree = "<group>"; };
-		2AB0A48213B66684008B7051 /* game-art.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "game-art.plist"; sourceTree = "<group>"; };
-		2AB0A48313B66684008B7051 /* game-art.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-art.png"; sourceTree = "<group>"; };
 		BB3AE97C13B642E300BB6E71 /* CinciCocoaDevDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CinciCocoaDevDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB3AE98013B642E300BB6E71 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB3AE98213B642E300BB6E71 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -559,9 +559,9 @@
 		BB3AE99113B642E300BB6E71 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2A8E39C613B67C36006C9BA7 /* game-art.plist */,
+				2A8E39C713B67C36006C9BA7 /* game-art.png */,
 				F822124713B66CC100030707 /* plane.png */,
-				2AB0A48213B66684008B7051 /* game-art.plist */,
-				2AB0A48313B66684008B7051 /* game-art.png */,
 				BB3AE99213B642E300BB6E71 /* Default.png */,
 				BB3AE99413B642E300BB6E71 /* fps_images.png */,
 				BB3AE99613B642E300BB6E71 /* Icon-72.png */,
@@ -1074,9 +1074,9 @@
 				BB3AE9A113B642E300BB6E71 /* Icon@2x.png in Resources */,
 				BB3AE9A413B642E300BB6E71 /* iTunesArtwork in Resources */,
 				BB3AEB6313B642E500BB6E71 /* blocks.png in Resources */,
-				2AB0A48413B66684008B7051 /* game-art.plist in Resources */,
-				2AB0A48513B66684008B7051 /* game-art.png in Resources */,
 				F822124813B66CC100030707 /* plane.png in Resources */,
+				2A8E39C813B67C36006C9BA7 /* game-art.plist in Resources */,
+				2A8E39C913B67C36006C9BA7 /* game-art.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

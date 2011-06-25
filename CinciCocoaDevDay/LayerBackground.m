@@ -27,24 +27,43 @@
 		[self addChild:spriteBatch];
         
         //number of background stripes
-		numStripes = 3;
+		numStripes = 5;
 		
 		// Add the 3 different stripes and position them on the screen
 		for (int i = 0; i < numStripes; i++)
 		{
-			NSString* frameName = [NSString stringWithFormat:@"BG_0%i.png", i + 1];
-            NSLog(@"Frame: %@", frameName);
+			NSString* frameName = [NSString stringWithFormat:@"BG_%i.png", i + 1];
+            //NSLog(@"Frame: %@", frameName);
 			CCSprite* sprite = [CCSprite spriteWithSpriteFrameName:frameName];
 			sprite.anchorPoint = CGPointMake(0, 0.5f);
 			sprite.position = CGPointMake(0, screenSize.height / 2);
 			[spriteBatch addChild:sprite z:i tag:i];
 		}
+        
+        // Add 3 more stripes, flip them and position them next to their neighbor stripe
+		for (int i = 0; i < numStripes; i++)
+		{
+			NSString* frameName = [NSString stringWithFormat:@"BG_%i.png", i + 1];
+			CCSprite* sprite = [CCSprite spriteWithSpriteFrameName:frameName];
+			
+			// Position the new sprite one screen width to the right
+			sprite.anchorPoint = CGPointMake(0, 0.5f);
+			sprite.position = CGPointMake(screenSize.width - 1, screenSize.height / 2);
+            
+			// Flip the sprite so that it aligns perfectly with its neighbor
+			sprite.flipX = YES;
+			
+			// Add the sprite using the same tag offset by numStripes
+			[spriteBatch addChild:sprite z:i tag:i + numStripes];
+		}
 		
 		// Initialize the array that contains the scroll factors for individual stripes.
 		speedFactors = [[CCArray alloc] initWithCapacity:numStripes];
+		[speedFactors addObject:[NSNumber numberWithFloat:0.0f]];
 		[speedFactors addObject:[NSNumber numberWithFloat:0.1f]];
-		[speedFactors addObject:[NSNumber numberWithFloat:0.3f]];
-		[speedFactors addObject:[NSNumber numberWithFloat:0.2f]];
+		[speedFactors addObject:[NSNumber numberWithFloat:0.1f]];
+        [speedFactors addObject:[NSNumber numberWithFloat:0.2f]];
+        [speedFactors addObject:[NSNumber numberWithFloat:0.3f]];
 		NSAssert([speedFactors count] == numStripes, @"speedFactors count does not match numStripes!");
         
 		scrollSpeed = 1.0f;
