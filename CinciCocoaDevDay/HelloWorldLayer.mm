@@ -19,6 +19,10 @@ enum {
 	kTagAnimation1 = 1,
 };
 
+@interface HelloWorldLayer()
+- (CCSprite *) buildPlaneAt:(CGPoint) pt velocity:(b2Vec2) velocity;
+@end
+
 
 // HelloWorldLayer implementation
 @implementation HelloWorldLayer
@@ -27,12 +31,20 @@ enum {
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
+    
+    // Load all of the game's artwork up front.
+    CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
+    //[frameCache addSpriteFramesWithFile:@"game-art.plist"];
+    [frameCache addSpriteFramesWithFile:@"game-art.plist"];
+
+    LayerBackground* background = [LayerBackground node];
+    [scene addChild:background z:0];
 	
 	// 'layer' is an autorelease object.
 	HelloWorldLayer *layer = [HelloWorldLayer node];
-	
+
 	// add layer as a child to scene
-	[scene addChild: layer];
+	[scene addChild: layer z:10];
 	
 	// return the scene
 	return scene;
@@ -50,18 +62,10 @@ enum {
 		
 		// enable accelerometer
 		self.isAccelerometerEnabled = YES;
-        
-        // Load all of the game's artwork up front.
-		CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
-		//[frameCache addSpriteFramesWithFile:@"game-art.plist"];
-        [frameCache addSpriteFramesWithFile:@"game-art.plist"];
 		
 		CGSize screenSize = [CCDirector sharedDirector].winSize;
 		CCLOG(@"Screen width %0.2f screen height %0.2f",screenSize.width,screenSize.height);
         
-        LayerBackground* background = [LayerBackground node];
-		[self addChild:background z:-1];
-		
 		// Define the gravity vector.
 		b2Vec2 gravity;
 		gravity.Set(0.0f, -10.0f);
@@ -119,6 +123,8 @@ enum {
 		
 		//Set up sprite
 		
+        plane = [self buildPlaneAt:(CGPoint) {screenSize.width+50.0,screenSize.height-20.0} velocity:b2Vec2(-1.5,0.0)];
+
 		CCSpriteBatchNode *batch = [CCSpriteBatchNode batchNodeWithFile:@"blocks.png" capacity:150];
 		[self addChild:batch z:0 tag:kTagBatchNode];
 		
@@ -273,4 +279,36 @@ enum {
 	// don't forget to call "super dealloc"
 	[super dealloc];
 }
+
+
+- (CCSprite *) buildPlaneAt:(CGPoint) pt velocity:(b2Vec2) velocity {
+    
+    CCSprite *result = [CCSprite spriteWithFile:@"plane.png"];
+    result.position = pt;
+    [self addChild:result];
+    
+    // Create ball body
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_kinematicBody;
+    bodyDef.position.Set(pt.x/PTM_RATIO, pt.y/PTM_RATIO);
+    bodyDef.userData = result;
+    b2Body *body = world->CreateBody(&bodyDef);
+    result.userData = body;
+    
+    // Create shape definition and add to body
+    b2PolygonShape dynamicBox;
+    dynamicBox.SetAsBox(.5f, .5f);//These are mid points for our 1m box
+    
+    // Define the dynamic body fixture.
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &dynamicBox;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 0.3f;
+    body->CreateFixture(&fixtureDef);
+    
+    body->SetLinearVelocity(velocity);
+    
+    return result;
+}
+
 @end

@@ -162,6 +162,7 @@
 		BB3AEB5D13B642E500BB6E71 /* HelloWorldLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3AEB5C13B642E500BB6E71 /* HelloWorldLayer.mm */; };
 		BB3AEB6013B642E500BB6E71 /* GLES-Render.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3AEB5F13B642E500BB6E71 /* GLES-Render.mm */; };
 		BB3AEB6313B642E500BB6E71 /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = BB3AEB6213B642E500BB6E71 /* blocks.png */; };
+		F822124813B66CC100030707 /* plane.png in Resources */ = {isa = PBXBuildFile; fileRef = F822124713B66CC100030707 /* plane.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -480,6 +481,7 @@
 		BB3AEB5F13B642E500BB6E71 /* GLES-Render.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "GLES-Render.mm"; sourceTree = "<group>"; };
 		BB3AEB6113B642E500BB6E71 /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		BB3AEB6213B642E500BB6E71 /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blocks.png; path = Resources/blocks.png; sourceTree = "<group>"; };
+		F822124713B66CC100030707 /* plane.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plane.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -557,6 +559,7 @@
 		BB3AE99113B642E300BB6E71 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F822124713B66CC100030707 /* plane.png */,
 				2AB0A48213B66684008B7051 /* game-art.plist */,
 				2AB0A48313B66684008B7051 /* game-art.png */,
 				BB3AE99213B642E300BB6E71 /* Default.png */,
@@ -1073,6 +1076,7 @@
 				BB3AEB6313B642E500BB6E71 /* blocks.png in Resources */,
 				2AB0A48413B66684008B7051 /* game-art.plist in Resources */,
 				2AB0A48513B66684008B7051 /* game-art.png in Resources */,
+				F822124813B66CC100030707 /* plane.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
