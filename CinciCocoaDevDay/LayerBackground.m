@@ -20,7 +20,7 @@
 		
 		// Get the game's texture atlas texture by adding it. Since it's added already it will simply return 
 		// the CCTexture2D associated with the texture atlas.
-		CCTexture2D* gameArtTexture = [[CCTextureCache sharedTextureCache] addImage:@"background.png"];
+		CCTexture2D* gameArtTexture = [[CCTextureCache sharedTextureCache] addImage:@"game-art.png"];
 		
 		// Create the background spritebatch
 		spriteBatch = [CCSpriteBatchNode batchNodeWithTexture:gameArtTexture];
@@ -30,7 +30,7 @@
 		numStripes = 3;
 		
 		// Add the 3 different stripes and position them on the screen
-		for (int i = 0; i < numStripes; i++)
+		for (int i = 1; i < numStripes; i++)
 		{
 			NSString* frameName = [NSString stringWithFormat:@"BG_0%i.png", i];
 			CCSprite* sprite = [CCSprite spriteWithSpriteFrameName:frameName];
@@ -41,9 +41,9 @@
 		
 		// Initialize the array that contains the scroll factors for individual stripes.
 		speedFactors = [[CCArray alloc] initWithCapacity:numStripes];
-		[speedFactors addObject:[NSNumber numberWithFloat:0.1f]];
-		[speedFactors addObject:[NSNumber numberWithFloat:0.6f]];
-		[speedFactors addObject:[NSNumber numberWithFloat:1.2f]];
+		[speedFactors addObject:[NSNumber numberWithFloat:0.0f]];
+		[speedFactors addObject:[NSNumber numberWithFloat:0.0f]];
+		[speedFactors addObject:[NSNumber numberWithFloat:0.0f]];
 		NSAssert([speedFactors count] == numStripes, @"speedFactors count does not match numStripes!");
         
 		scrollSpeed = 1.0f;
