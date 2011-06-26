@@ -12,6 +12,15 @@
 //to define the ratio so that your most common object type is 1x1 metre.
 #define PTM_RATIO 32
 
+#define kGravity -10.0
+
+#define kPlaneMinimumX -50.0
+#define kPlaneMaximumX 550.0
+#define kPlaneMinimumY 50.0
+#define kPlaneMaximumY 300.0
+#define kPlaneVelocity -2.0
+#define kPlaneAccelerationRatio 3.0
+
 // enums that will be used as tags
 enum {
 	kTagTileMap = 1,
@@ -21,6 +30,8 @@ enum {
 
 @interface HelloWorldLayer()
 - (CCSprite *) buildPlaneAt:(CGPoint) pt velocity:(b2Vec2) velocity;
+- (void) applyAccelerationToPlane:(CGFloat) accelY;
+- (void) adjustPlane;
 @end
 
 
@@ -68,7 +79,7 @@ enum {
 
 		// Define the gravity vector.
 		b2Vec2 gravity;
-		gravity.Set(0.0f, -10.0f);
+		gravity.Set(0.0f, kGravity);
 		
 		// Do we want to let bodies sleep?
 		// This will speed up the physics simulation
@@ -113,17 +124,17 @@ enum {
 		groundBody->CreateFixture(&groundBox,0);
 		
 		// left
-		groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(0,0));
-		groundBody->CreateFixture(&groundBox,0);
+//		groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(0,0));
+//		groundBody->CreateFixture(&groundBox,0);
 		
 		// right
-		groundBox.SetAsEdge(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,0));
-		groundBody->CreateFixture(&groundBox,0);
+//		groundBox.SetAsEdge(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,0));
+//		groundBody->CreateFixture(&groundBox,0);
 		
 		
 		//Set up sprite
 		
-        plane = [self buildPlaneAt:(CGPoint) {screenSize.width+50.0,screenSize.height-20.0} velocity:b2Vec2(-1.5,0.0)];
+        plane = [self buildPlaneAt:(CGPoint) {kPlaneMaximumX,kPlaneMaximumY} velocity:b2Vec2(kPlaneVelocity,0.0)];
 
 		CCSpriteBatchNode *batch = [CCSpriteBatchNode batchNodeWithFile:@"blocks.png" capacity:150];
 		[self addChild:batch z:0 tag:kTagBatchNode];
@@ -204,6 +215,10 @@ enum {
 	// generally best to keep the time step and iterations fixed.   
 	world->Step(dt, velocityIterations, positionIterations);
 
+    if([[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"]) {
+        // directly counteract gravity for level light in simulator
+        planeLiftForce = b2Vec2(0.0,-kGravity); 
+    }
 	
 	//Iterate over the bodies in the physics world
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
@@ -215,6 +230,8 @@ enum {
 			myActor.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
         }	
 	}
+
+    [self adjustPlane];
 }
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -257,14 +274,7 @@ enum {
 	float accelX = (float) acceleration.x * kFilterFactor + (1- kFilterFactor)*prevX;
 	float accelY = (float) acceleration.y * kFilterFactor + (1- kFilterFactor)*prevY;
 
-	b2Body *body = (b2Body *) plane.userData;
-    b2Vec2 velocity = body->GetLinearVelocity(); 
-    body->SetLinearVelocity(velocity);
-
-    b2Vec2 nudge = b2Vec2(10.0,10.0);
-    b2Vec2 point = body->GetPosition();
-    NSLog(@"pt=%f,%f [%f,%f]  f=%f,%f", point.x, point.y, point.x*PTM_RATIO, point.y*PTM_RATIO, nudge.x, nudge.y);
-    body->ApplyLinearImpulse(nudge, point);
+    [self applyAccelerationToPlane:accelY];
     
 	prevX = accelX;
 	prevY = accelY;
@@ -300,7 +310,8 @@ enum {
     
     // Create ball body
     b2BodyDef bodyDef;
-    bodyDef.type = b2_kinematicBody;
+//    bodyDef.type = b2_kinematicBody;
+    bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(pt.x/PTM_RATIO, pt.y/PTM_RATIO);
     bodyDef.userData = result;
     b2Body *body = world->CreateBody(&bodyDef);
@@ -320,6 +331,36 @@ enum {
     body->SetLinearVelocity(velocity);
     
     return result;
+}
+
+- (void) applyAccelerationToPlane:(CGFloat) accelY {
+    CGFloat f = -kGravity - accelY*kPlaneAccelerationRatio;
+    planeLiftForce = b2Vec2(0.0,f);
+}
+
+- (void) adjustPlane {
+	b2Body *body = (b2Body *) plane.userData;
+    CGFloat screenx = body->GetPosition().x * PTM_RATIO;
+    CGFloat screeny = body->GetPosition().y * PTM_RATIO;
+
+    BOOL resetPosition = NO;
+    if (screenx < kPlaneMinimumX) {
+        screenx = kPlaneMaximumX;
+        resetPosition = YES;
+    }
+    if (screeny < kPlaneMinimumY) {
+        screeny = kPlaneMinimumY;
+        resetPosition = YES;
+    }
+    if (screeny > kPlaneMaximumY) {
+        screeny = kPlaneMaximumY;
+        resetPosition = YES;
+    }
+    if (resetPosition) {
+        b2Vec2 position = b2Vec2(screenx/PTM_RATIO, screeny/PTM_RATIO);
+        body->SetTransform(position, 0.0);
+    }
+    body->ApplyForce(planeLiftForce, body->GetPosition());
 }
 
 @end

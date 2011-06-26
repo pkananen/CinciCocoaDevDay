@@ -15,6 +15,7 @@
 	b2World* world;
 	GLESDebugDraw *m_debugDraw;
     CCSprite* plane;
+    b2Vec2 planeLiftForce;
 }
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
